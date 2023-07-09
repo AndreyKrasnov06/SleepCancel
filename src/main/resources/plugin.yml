@@ -1,0 +1,10 @@
+name: SleepCancel
+version: '${project.version}'
+main: com.voidminedevelopment.sleepcancel.SleepCancel
+api-version: '1.20'
+folia-supported: true
+commands:
+  wakeup:
+    description: Wakes up all players on server
+    usage: /<command>
+    permission: sleepcancel.wakeup
