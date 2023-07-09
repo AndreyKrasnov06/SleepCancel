@@ -8,3 +8,7 @@ commands:
     description: Wakes up all players on server
     usage: /<command>
     permission: sleepcancel.wakeup
+permissions:
+  sleepcancel.wakeup:
+    description: Allows wakeup commands
+    default: true

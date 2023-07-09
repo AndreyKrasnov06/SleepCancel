@@ -18,7 +18,9 @@ public class WakeUp implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             TextComponent playerCancelMessage = Component.text(player.getName(), NamedTextColor.AQUA).append(Component.text(" Не хочет пропускать ночь", NamedTextColor.GOLD));
-            Bukkit.getServer().broadcast(playerCancelMessage);
+            for (Player i: Bukkit.getOnlinePlayers()) {
+                i.sendMessage(playerCancelMessage);
+            }
             for (Player i: SleepCancel.playersSleeping) {
                 i.wakeup(true);
             }
