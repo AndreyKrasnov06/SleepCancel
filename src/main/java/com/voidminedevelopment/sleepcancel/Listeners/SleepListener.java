@@ -1,6 +1,8 @@
 package com.voidminedevelopment.sleepcancel.Listeners;
 
 import com.voidminedevelopment.sleepcancel.SleepCancel;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
@@ -19,12 +21,5 @@ public class SleepListener implements Listener {
     @EventHandler
     public void onPlayerBedLeave(PlayerBedLeaveEvent event) {
         SleepCancel.clearPlayerSleepState(event.getPlayer());
-    }
-
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        if (SleepCancel.checkPlayerSleepState(event.getPlayer())) {
-            SleepCancel.clearPlayerSleepState(event.getPlayer());
-        }
     }
 }

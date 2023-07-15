@@ -16,15 +16,20 @@ public class WakeUp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            Player player = (Player) sender;
-            TextComponent playerCancelMessage = Component.text(player.getName(), NamedTextColor.AQUA).append(Component.text(" Не хочет пропускать ночь", NamedTextColor.GOLD));
-            for (Player i: Bukkit.getOnlinePlayers()) {
-                i.sendMessage(playerCancelMessage);
+            if (SleepCancel.playersSleeping.isEmpty()) {
+                TextComponent playerNobodySleepingMessage = Component.text("Сейчас никто не спит", NamedTextColor.GOLD);
+                sender.sendMessage(playerNobodySleepingMessage);
+            } else {
+                Player player = (Player) sender;
+                TextComponent playerCancelMessage = Component.text(player.getName(), NamedTextColor.AQUA).append(Component.text(" не хочет пропускать ночь", NamedTextColor.GOLD));
+                for (Player i : Bukkit.getOnlinePlayers()) {
+                    i.sendMessage(playerCancelMessage);
+                }
+                for (Player i : SleepCancel.playersSleeping) {
+                    i.wakeup(true);
+                }
+                SleepCancel.playersSleeping.clear();
             }
-            for (Player i: SleepCancel.playersSleeping) {
-                i.wakeup(true);
-            }
-            SleepCancel.playersSleeping.clear();
             return true;
         }
         return false;

@@ -32,7 +32,7 @@ public final class SleepCancel extends JavaPlugin {
 
     public static void setPlayerSleepState(Player player) {
         playersSleeping.add(player);
-        TextComponent playerSleepMessage = Component.text(player.getName(), NamedTextColor.AQUA).append(Component.text(" Лёг спать", NamedTextColor.GOLD)).append(Component.text(" [CANCEL]", NamedTextColor.RED, TextDecoration.BOLD).clickEvent(ClickEvent.runCommand("/wakeup")));
+        TextComponent playerSleepMessage = Component.text(player.getName(), NamedTextColor.AQUA).append(Component.text(" лёг спать", NamedTextColor.GOLD)).append(Component.text(" [CANCEL]", NamedTextColor.RED, TextDecoration.BOLD).clickEvent(ClickEvent.runCommand("/wakeup")));
         for (Player i: Bukkit.getOnlinePlayers()) {
             i.sendMessage(playerSleepMessage);
         }
@@ -40,9 +40,5 @@ public final class SleepCancel extends JavaPlugin {
 
     public static void clearPlayerSleepState(Player player) {
         playersSleeping.remove(player);
-    }
-
-    public static boolean checkPlayerSleepState(Player player) {
-        return playersSleeping.contains(player);
     }
 }
