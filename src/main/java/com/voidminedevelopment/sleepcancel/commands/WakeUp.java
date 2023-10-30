@@ -4,14 +4,19 @@ import com.voidminedevelopment.sleepcancel.SleepCancel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class WakeUp implements CommandExecutor {
+    private final JavaPlugin plugin;
+
+    public WakeUp(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -26,7 +31,9 @@ public class WakeUp implements CommandExecutor {
                     i.sendMessage(playerCancelMessage);
                 }
                 for (Player i : SleepCancel.playersSleeping) {
-                    i.wakeup(true);
+                    Bukkit.getRegionScheduler().run(plugin, i.getLocation(), task -> {
+                        i.wakeup(true);
+                    });
                 }
                 SleepCancel.playersSleeping.clear();
             }

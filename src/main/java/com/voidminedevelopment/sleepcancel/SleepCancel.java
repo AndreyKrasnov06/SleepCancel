@@ -8,9 +8,9 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class SleepCancel extends JavaPlugin {
@@ -19,8 +19,8 @@ public final class SleepCancel extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        this.getCommand("wakeup").setExecutor(new WakeUp());
-        getServer().getPluginManager().registerEvents(new SleepListener(),this);
+        this.getCommand("wakeup").setExecutor(new WakeUp(this));
+        getServer().getPluginManager().registerEvents(new SleepListener(), this);
         getLogger().info("SleepCancel - включён");
     }
 
@@ -33,7 +33,7 @@ public final class SleepCancel extends JavaPlugin {
     public static void setPlayerSleepState(Player player) {
         playersSleeping.add(player);
         TextComponent playerSleepMessage = Component.text(player.getName(), NamedTextColor.AQUA).append(Component.text(" лёг спать", NamedTextColor.GOLD)).append(Component.text(" [CANCEL]", NamedTextColor.RED, TextDecoration.BOLD).clickEvent(ClickEvent.runCommand("/wakeup")));
-        for (Player i: Bukkit.getOnlinePlayers()) {
+        for (Player i : Bukkit.getOnlinePlayers()) {
             i.sendMessage(playerSleepMessage);
         }
     }
