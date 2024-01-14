@@ -31,9 +31,8 @@ public class WakeUp implements CommandExecutor {
                     i.sendMessage(playerCancelMessage);
                 }
                 for (Player i : SleepCancel.playersSleeping) {
-                    Bukkit.getRegionScheduler().run(plugin, i.getLocation(), task -> {
-                        i.wakeup(true);
-                    });
+                    Runnable task = () -> i.wakeup(true);
+                    i.getScheduler().run(plugin, value -> task.run(), task);
                 }
                 SleepCancel.playersSleeping.clear();
             }

@@ -11,10 +11,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class SleepCancel extends JavaPlugin {
     public static CopyOnWriteArrayList<Player> playersSleeping = new CopyOnWriteArrayList<>();
+    public static final ConcurrentHashMap<UUID, Long> commandCooldowns = new ConcurrentHashMap<>();
+    public static final long cooldownTimeMillis = 60000; // 5 seconds cooldown (adjust as needed)
+
 
     @Override
     public void onEnable() {
@@ -40,5 +45,18 @@ public final class SleepCancel extends JavaPlugin {
 
     public static void clearPlayerSleepState(Player player) {
         playersSleeping.remove(player);
+    }
+
+    public static boolean hasCooldown(UUID playerId) {
+        return commandCooldowns.containsKey(playerId) &&
+                System.currentTimeMillis() - commandCooldowns.get(playerId) < cooldownTimeMillis;
+    }
+
+    public static void updateCooldown(UUID playerId) {
+        commandCooldowns.put(playerId, System.currentTimeMillis());
+    }
+
+    public static long getRemainingCooldown(UUID playerId) {
+        return (cooldownTimeMillis - (System.currentTimeMillis() - commandCooldowns.get(playerId))) / 1000;
     }
 }
