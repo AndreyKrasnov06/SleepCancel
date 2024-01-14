@@ -16,10 +16,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class SleepCancel extends JavaPlugin {
-    public static CopyOnWriteArrayList<Player> playersSleeping = new CopyOnWriteArrayList<>();
+    public static final CopyOnWriteArrayList<Player> playersSleeping = new CopyOnWriteArrayList<>();
     public static final ConcurrentHashMap<UUID, Long> commandCooldowns = new ConcurrentHashMap<>();
     public static final long cooldownTimeMillis = 60000; // 5 seconds cooldown (adjust as needed)
-
 
     @Override
     public void onEnable() {

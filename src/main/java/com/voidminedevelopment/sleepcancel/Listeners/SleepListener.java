@@ -24,19 +24,11 @@ public class SleepListener implements Listener {
                 long remainingCooldown = SleepCancel.getRemainingCooldown(playerId);
                 TextComponent playerRemainingCooldownMessage = Component.text("Вы не можете лечь спать ещё ", NamedTextColor.GOLD).append(Component.text(remainingCooldown, NamedTextColor.AQUA)).append(Component.text(" секунд", NamedTextColor.GOLD));
                 player.sendMessage(playerRemainingCooldownMessage);
-
-                // You can optionally provide information about the remaining cooldown time.
-                // You can calculate the remaining time by subtracting the last execution time from the current time.
-                // long remainingTime = calculateRemainingTime(playerId);
-                // player.sendMessage("Remaining cooldown: " + remainingTime + " seconds");
                 event.setCancelled(true);
                 return;
             }
-            // Execute your command logic here
             SleepCancel.setPlayerSleepState(event.getPlayer());
-            // Update the last execution time
             SleepCancel.updateCooldown(playerId);
-
         }
     }
 
